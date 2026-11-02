@@ -1,0 +1,9 @@
+{
+  "name": "Study Stranger Pro — 3D AI Mentor & WBCHSE Studio",
+  "description": "Personal 3D AI Mentor, 1000MB PDF Study Vault, Verified Daily Streaks, and 24 Interactive Tools for WBCHSE Class 12 Preparation.",
+  "requestFramePermissions": [
+    "microphone",
+    "camera"
+  ],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

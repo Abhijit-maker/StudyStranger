@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Stranger - Full App Architecture & Build Documentation</title>
+  <style>
+    :root {
+      --bg-primary: #0f172a;
+      --bg-card: #1e293b;
+      --accent: #ff7a30;
+      --accent-hover: #e0631b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #334155;
+      --success: #10b981;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header {
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 24px;
+      margin-bottom: 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .brand-title {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .badge {
+      background: var(--accent);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .admin-notice {
+      background: rgba(255, 122, 48, 0.1);
+      border: 1px solid var(--accent);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 30px;
+      font-size: 14px;
+      color: #ffb88c;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .btn-download {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-download:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+
+    section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 28px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    }
+
+    h2 {
+      font-size: 20px;
+      color: var(--accent);
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h3 {
+      font-size: 16px;
+      color: #e2e8f0;
+      margin: 18px 0 10px 0;
+    }
+
+    p {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    ul, ol {
+      margin-left: 20px;
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    code {
+      background: #090d16;
+      color: #38bdf8;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 13px;
+    }
+
+    pre {
+      background: #090d16;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 16px;
+      overflow-x: auto;
+      color: #e2e8f0;
+      font-family: monospace;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .card-info {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      padding: 16px;
+      border-radius: 12px;
+    }
+
+    .highlight {
+      color: #38bdf8;
+      font-weight: 600;
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px 0;
+      color: var(--text-muted);
+      font-size: 12px;
+      border-top: 1px solid var(--border-color);
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div>
+        <div class="brand-title">
+          <span>📚 STUDY STRANGER</span>
+          <span class="badge">ADMIN ARCHITECTURE BUILD DOCS</span>
+        </div>
+        <p style="margin-top: 6px; font-size: 13px;">Complete step-by-step development specifications, WBCHSE syllabus map, and Firebase setup details.</p>
+      </div>
+      <div>
+        <a href="javascript:window.print()" class="btn-download">🖨️ Print / Save PDF</a>
+      </div>
+    </header>
+
+    <div class="admin-notice">
+      <div>
+        <strong>🔐 CONFIDENTIAL ADMIN DOCUMENTATION</strong>
+        <p style="margin: 4px 0 0 0; color: #cbd5e1; font-size: 12px;">This document is generated for user <strong>Abhijit (abhiyaan963)</strong> and authorized System Administrators. Non-admin students cannot access this vault.</p>
+      </div>
+    </div>
+
+    <!-- Overview Section -->
+    <section>
+      <h2>1. Project Profile & Purpose</h2>
+      <div class="grid-2">
+        <div class="card-info">
+          <h3>👤 Target Student Profile</h3>
+          <ul>
+            <li><strong>Student Name:</strong> Abhijit (অভিজিৎ)</li>
+            <li><strong>Role:</strong> Class 12 Student</li>
+            <li><strong>Education Board:</strong> WBCHSE (West Bengal Council of Higher Secondary Education)</li>
+            <li><strong>Level:</strong> Semester 3</li>
+            <li><strong>Exam Format:</strong> MCQ-based Exam preparation & Concept Mastery</li>
+          </ul>
+        </div>
+        <div class="card-info">
+          <h3>⚡ Key Objectives</h3>
+          <ul>
+            <li>Provide 24/7 AI Voice & Text Mentorship with Bengali & English capability.</li>
+            <li>Interactive MCQ Speed Blitz & Subject Mock Tests for WBCHSE Class 12 Semester 3.</li>
+            <li>Permanent Account Memory Vault synced to Firebase Firestore.</li>
+            <li>Live Board, Step-by-Step Doubt & Math Solvers with LaTeX formatting.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- WBCHSE Syllabus -->
+    <section>
+      <h2>2. Complete WBCHSE Semester 3 Syllabus Map</h2>
+      
+      <h3>🧬 1. Biology (জীববিদ্যা)</h3>
+      <div class="grid-2">
+        <div class="card-info">
+          <h4>Unit I: Reproduction</h4>
+          <ul>
+            <li><strong>Sexual Reproduction in Flowering Plants:</strong> Microsporogenesis, Megasporogenesis, Pollination mechanisms (Geitonogamy, Xenogamy).</li>
+            <li><strong>Human Reproduction:</strong> Gametogenesis (Spermatogenesis/Oogenesis), Menstrual Cycle (Day 14 LH surge), Fertilization (ZP3 receptor binding), Ectopic Implantation (e.g. Fallopian tubes).</li>
+            <li><strong>Reproductive Health:</strong> Sexually Transmitted Diseases (Syphilis caused by <i>Treponema pallidum</i>, HIV, Chlamydia).</li>
+          </ul>
+        </div>
+        <div class="card-info">
+          <h4>Unit II: Genetics and Evolution</h4>
+          <ul>
+            <li><strong>Heredity & Variation:</strong> Mendel's Laws, Linkage, Crossing Over.</li>
+            <li><strong>Molecular Basis of Inheritance:</strong> DNA/RNA structure (A=T 2 bonds, G≡C 3 bonds), Replication (SSB protein stabilization), Transcription (TATA Box), Translation.</li>
+            <li><strong>Evolution:</strong> Origin of Life (Oparin-Haldane hypothesis), Homologous & Analogous Organs, Human Evolution (<i>Australopithecus</i>, <i>Homo erectus</i>).</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 24px;">📖 2. Bengali A (বাংলা এ)</h3>
+      <div class="grid-2">
+        <div class="card-info">
+          <h4>Prose & International Literature</h4>
+          <ul>
+            <li><strong>আদিরিনী (প্রভাত কুমার মুখোপাধ্যায়):</strong> Jayram Mokhtar and Adarini the elephant (purchased for 2000 rupees).</li>
+            <li><strong>বাঙ্গালা ভাষা (স্বামী বিবেকানন্দ):</strong> Views on vernacular language, simplicity, and true education.</li>
+            <li><strong>পোটরাজ (শঙ্কর রাও খারাট):</strong> Marathi translated literature.</li>
+            <li><strong>তার সঙ্গে (পাবলো নেরুদা):</strong> Translated into Bengali by Shakti Chattopadhyay.</li>
+          </ul>
+        </div>
+        <div class="card-info">
+          <h4>Poetry & Linguistics</h4>
+          <ul>
+            <li><strong>ধর্ম (শ্রীজাত):</strong> Exploration of human religion (Manush-er Dharma) vs institutionalized dogma.</li>
+            <li><strong>দিগ্বিজয়ের রূপকথা (নবনীতা দেবসেন):</strong> Courage, self-discovery, and internal resilience.</li>
+            <li><strong>ভাষাবিজ্ঞান (Linguistics):</strong> Phonemics (ধ্বনিতত্ত্ব), Semantics (শব্দার্থতত্ত্ব), Structural Linguistics.</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 24px;">📚 3. English B</h3>
+      <div class="grid-2">
+        <div class="card-info">
+          <h4>Prose</h4>
+          <ul>
+            <li><strong>The Night Train at Deoli (Ruskin Bond):</strong> Narrative of longing, memory, and the unknown girl at Deoli platform.</li>
+            <li><strong>Strong Roots (APJ Abdul Kalam):</strong> Spiritual upbringing, simplicity, and harmony in Rameswaram.</li>
+            <li><strong>The Bet (Anton Chekhov):</strong> Discussion on capital punishment vs life imprisonment; wager of 2 million rubles for 15 years.</li>
+          </ul>
+        </div>
+        <div class="card-info">
+          <h4>Poetry & Drama</h4>
+          <ul>
+            <li><strong>Ulysses (Alfred Lord Tennyson):</strong> Heroic perseverance — <i>"To strive, to seek, to find, and not to yield."</i></li>
+            <li><strong>Our Casuarina Tree (Toru Dutt):</strong> Nostalgic longing, childhood memories, and immortality of nature.</li>
+            <li><strong>Riders to the Sea (J.M. Synge):</strong> Irish tragedy depicting the sea as an unrelenting antagonist against Maurya's family.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Architecture -->
+    <section>
+      <h2>3. Technical Architecture & Component Breakdown</h2>
+      
+      <p>The application is built using a modern full-stack single-page architecture powered by React 18, Vite, TypeScript, Tailwind CSS, and Google GenAI APIs.</p>
+
+      <pre>
+/src
+ ├── App.tsx                     # Core state, auth routing, Live WebSockets sync, admin controls
+ ├── firebase.ts                 # Firebase App, Firestore DB, & Auth initialization
+ ├── services/
+ │   ├── geminiService.ts        # Server-side Gemini 2.5 API, Memory Vault, Math & Doubt logic
+ │   ├── liveService.ts          # WebSocket WebRTC Live Voice AI session manager
+ │   └── commandService.ts       # Action dispatcher for voice/text commands
+ ├── components/
+ │   ├── AppBuildDocsModal.tsx   # Admin-only Build Documentation & HTML/TXT Exporter
+ │   ├── Dashboard.tsx           # Student command center, Live Date/Weather, 7-Day interactive schedule
+ │   ├── LiveBoard.tsx           # Real-time whiteboard & visual canvas
+ │   ├── Visualizer.tsx          # Animated AI Mentor avatar with lip-sync & expressions
+ │   ├── AIMemoryVault.tsx       # Firestore-backed permanent student account memories
+ │   ├── Syllabus.tsx            # Interactive WBCHSE Semester 3 progress tracker
+ │   ├── SpeedBlitz.tsx          # MCQ Speed Blitz practice engine
+ │   ├── DoubtSolver.tsx         # AI Step-by-step doubt resolution
+ │   └── MathSolver.tsx          # Formula & step solver with KaTeX math rendering
+      </pre>
+
+      <h3>🔑 Key Features & Authentication Flow</h3>
+      <ul>
+        <li><strong>Admin Access:</strong> Username <code>abhiyaan963</code> or Admin email grants full administrative access to system logs, memory inspection, user moderation, and build export tools.</li>
+        <li><strong>Firebase Fallback Resilience:</strong> Email/Password authentication leverages Firebase Auth with instant fallback local profile creation if auth operations are limited.</li>
+        <li><strong>Live Date & Weather Widget:</strong> Real-time clock and calendar date formatted dynamically (e.g., <code>Aug 4, 2026</code>) with live Kolkata weather sync.</li>
+        <li><strong>AI Voice & Text Synchronization:</strong> Seamless real-time voice chat powered by Gemini Multimodal Live API with full Bengali & English voice responses.</li>
+      </ul>
+    </section>
+
+    <!-- Database Schema -->
+    <section>
+      <h2>4. Firebase Firestore Data Model</h2>
+      
+      <h3>Collection: <code>users/{userId}</code></h3>
+      <pre>
+{
+  "uid": "string",
+  "displayName": "Abhijit (Admin)",
+  "username": "abhiyaan963",
+  "email": "jhhh47943@gmail.com",
+  "isAdmin": true,
+  "points": 9999,
+  "streak": 99,
+  "status": "active",
+  "lastActive": "2026-08-04T12:00:00.000Z"
+}
+      </pre>
+
+      <h3>Collection: <code>users/{userId}/memories/{memoryId}</code></h3>
+      <pre>
+{
+  "id": "mem_1722800000000",
+  "fact": "Abhijit prefers Bengali explanation for Biology microsporogenesis",
+  "category": "Voice Memory",
+  "timestamp": "2026-08-04T12:10:00.000Z"
+}
+      </pre>
+    </section>
+
+    <footer>
+      <p>© 2026 Study Stranger (অভিজিৎ) • WBCHSE Class 12 Semester 3 AI Companion. Generated by Google AI Studio.</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>

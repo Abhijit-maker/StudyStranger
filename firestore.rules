@@ -1,0 +1,215 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1. Global Default-Deny Catch-All
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Hardened Global Helpers
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-@\\.]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid)) ||
+        (request.auth.token.email_verified == true && (
+          request.auth.token.email == 'studystrangerai@gmail.com' ||
+          request.auth.token.email == 'ayanofficial762@gmail.com' ||
+          request.auth.token.email == 'jhhh47943@gmail.com'
+        ))
+      );
+    }
+
+    function isValidSharedDocument(data, docId) {
+      return data.keys().size() <= 30 &&
+        data.id is string && data.id == docId && data.id.size() >= 1 && data.id.size() <= 128 &&
+        data.name is string && data.name.size() >= 1 && data.name.size() <= 500 &&
+        (!('folderId' in data) || (data.folderId is string && data.folderId.size() <= 128)) &&
+        (!('size' in data) || (data.size is number && data.size >= 0)) &&
+        (!('mimeType' in data) || (data.mimeType is string && data.mimeType.size() <= 128)) &&
+        (!('uploadedAt' in data) || (data.uploadedAt is string && data.uploadedAt.size() <= 128)) &&
+        (!('subjectTag' in data) || (data.subjectTag is string && data.subjectTag.size() <= 200)) &&
+        (!('uploadedBy' in data) || (data.uploadedBy is string && data.uploadedBy.size() <= 128)) &&
+        (!('uploaderName' in data) || (data.uploaderName is string && data.uploaderName.size() <= 200)) &&
+        (!('uploaderEmail' in data) || (data.uploaderEmail is string && data.uploaderEmail.size() <= 254)) &&
+        (!('sizeFormatted' in data) || (data.sizeFormatted is string && data.sizeFormatted.size() <= 128)) &&
+        (!('dataUrl' in data) || (data.dataUrl is string && data.dataUrl.size() <= 1040000)) &&
+        (!('inlineDataUrl' in data) || (data.inlineDataUrl is string && data.inlineDataUrl.size() <= 1040000)) &&
+        (!('streamUrl' in data) || (data.streamUrl is string && data.streamUrl.size() <= 1024)) &&
+        (!('isFirestoreChunked' in data) || data.isFirestoreChunked is bool) &&
+        (!('firestoreChunkCount' in data) || (data.firestoreChunkCount is number && data.firestoreChunkCount >= 0 && data.firestoreChunkCount <= 2000));
+    }
+
+    function isValidSharedDocumentChunk(data, docId) {
+      return data.keys().size() <= 10 &&
+        data.docId is string && data.docId == docId && data.docId.size() <= 128 &&
+        data.index is number && data.index >= 0 && data.index <= 2000 &&
+        data.totalChunks is number && data.totalChunks >= 1 && data.totalChunks <= 2000 &&
+        data.data is string && data.data.size() >= 1 && data.data.size() <= 1040000;
+    }
+
+    function isValidSharedFolder(data, folderId) {
+      return data.keys().size() <= 16 &&
+        data.id is string && data.id == folderId && data.id.size() >= 1 && data.id.size() <= 128 &&
+        data.name is string && data.name.size() >= 1 && data.name.size() <= 300 &&
+        (!('parentId' in data) || data.parentId == null || (data.parentId is string && data.parentId.size() <= 128)) &&
+        (!('subjectTag' in data) || (data.subjectTag is string && data.subjectTag.size() <= 200)) &&
+        (!('description' in data) || (data.description is string && data.description.size() <= 1000)) &&
+        (!('createdBy' in data) || (data.createdBy is string && data.createdBy.size() <= 128)) &&
+        (!('createdAt' in data) || (data.createdAt is string && data.createdAt.size() <= 128));
+    }
+
+    function isValidUserProfile(data, userId) {
+      return data.keys().size() <= 35 &&
+        (!('uid' in data) || (data.uid is string && data.uid == userId && data.uid.size() <= 128)) &&
+        (!('name' in data) || (data.name is string && data.name.size() >= 1 && data.name.size() <= 120)) &&
+        (!('displayName' in data) || (data.displayName is string && data.displayName.size() <= 120)) &&
+        (!('email' in data) || data.email == null || (data.email is string && data.email.size() <= 254)) &&
+        (!('photoURL' in data) || data.photoURL == null || (data.photoURL is string && data.photoURL.size() <= 2048)) &&
+        (!('board' in data) || (data.board is string && data.board.size() <= 64)) &&
+        (!('class' in data) || (data.class is string && data.class.size() <= 64)) &&
+        (!('provider' in data) || (data.provider is string && data.provider.size() <= 32)) &&
+        (!('points' in data) || data.points is number) &&
+        (!('streak' in data) || data.streak is number) &&
+        (!('lastLogin' in data) || (data.lastLogin is string && data.lastLogin.size() <= 64)) &&
+        (!('aiMemories' in data) || (data.aiMemories is list && data.aiMemories.size() <= 60)) &&
+        (!('lastActiveConversation' in data) || (data.lastActiveConversation is list && data.lastActiveConversation.size() <= 50)) &&
+        (!('chatSessions' in data) || (data.chatSessions is list && data.chatSessions.size() <= 25)) &&
+        (!('mathLabFreeUses' in data) || (data.mathLabFreeUses is number && data.mathLabFreeUses >= 0 && data.mathLabFreeUses <= 100));
+    }
+
+    // Connection test probe
+    match /test/connection {
+      allow get: if true;
+      allow list, write: if false;
+    }
+
+    // Admins lookup collection
+    match /admins/{adminId} {
+      allow get: if isValidId(adminId) && (request.auth == null || request.auth.uid == adminId);
+      allow list, write: if false;
+    }
+
+    // Users collection (Schema-validated per userId)
+    match /users/{userId} {
+      allow get: if isValidId(userId);
+      allow list: if resource.data.uid is string;
+      allow create: if isValidId(userId) && isValidUserProfile(incoming(), userId);
+      allow update: if isValidId(userId) && isValidUserProfile(incoming(), userId);
+      allow delete: if isValidId(userId) && isAdmin();
+    }
+
+    // Centralized Shared PDF Documents (Accessible and syncable across all student & admin accounts)
+    match /shared_documents/{docId} {
+      allow get: if isValidId(docId);
+      allow list: if resource.data.name is string;
+      allow create, update: if isValidId(docId) && isValidSharedDocument(incoming(), docId);
+      allow delete: if isValidId(docId);
+
+      match /chunks/{chunkId} {
+        allow get: if isValidId(docId) && isValidId(chunkId);
+        allow list: if resource.data.docId is string;
+        allow create, update: if isValidId(docId) && isValidId(chunkId) && isValidSharedDocumentChunk(incoming(), docId);
+        allow delete: if isValidId(docId) && isValidId(chunkId);
+      }
+    }
+
+    // Legacy alias collection for backwards compatibility
+    match /shared_pdfs/{docId} {
+      allow get: if isValidId(docId);
+      allow list: if resource.data.name is string;
+      allow create, update: if isValidId(docId) && isValidSharedDocument(incoming(), docId);
+      allow delete: if isValidId(docId);
+    }
+
+    // Centralized Shared Folders & Sub-Folders
+    match /shared_folders/{folderId} {
+      allow get: if isValidId(folderId);
+      allow list: if resource.data.name is string;
+      allow create, update: if isValidId(folderId) && isValidSharedFolder(incoming(), folderId);
+      allow delete: if isValidId(folderId);
+    }
+
+    // Announcements / WBCHSE Notice Board
+    match /announcements/{announcementId} {
+      allow get: if isValidId(announcementId);
+      allow list: if resource.data.title is string;
+      allow create, update: if isValidId(announcementId) &&
+        incoming().title is string && incoming().title.size() <= 300;
+      allow delete: if isValidId(announcementId);
+    }
+
+    // Mock Test Results
+    match /mock_test_results/{resultId} {
+      allow get: if isValidId(resultId);
+      allow list: if resource.data.score is number;
+      allow create: if isValidId(resultId) &&
+        incoming().score is number &&
+        incoming().subject is string && incoming().subject.size() <= 80;
+      allow update: if isValidId(resultId) &&
+        incoming().score is number;
+      allow delete: if isValidId(resultId) && isAdmin();
+    }
+
+    // Focus Study Room Sessions
+    match /focus_sessions/{sessionId} {
+      allow get: if isValidId(sessionId);
+      allow list: if resource.data.name is string;
+      allow create, update: if isValidId(sessionId) &&
+        incoming().name is string && incoming().name.size() <= 120;
+      allow delete: if isValidId(sessionId);
+    }
+
+    // 1v1 Friend Quiz Duel Challenges
+    match /challenges/{challengeId} {
+      allow get: if isValidId(challengeId);
+      allow list: if resource.data.roomCode is string;
+      allow create: if isValidId(challengeId) &&
+        incoming().roomCode is string && incoming().roomCode.size() <= 32;
+      allow update: if isValidId(challengeId) &&
+        incoming().roomCode is string && incoming().roomCode.size() <= 32;
+      allow delete: if isValidId(challengeId) && isAdmin();
+    }
+
+    // Accountability Vigilance Feedback & Votes
+    match /accountability_feedback/{feedbackId} {
+      allow get: if isValidId(feedbackId);
+      allow list: if resource.data.userId is string;
+      allow create: if isValidId(feedbackId);
+      allow update, delete: if isValidId(feedbackId) && isAdmin();
+    }
+
+    match /accountability_votes/{voteId} {
+      allow get: if isValidId(voteId);
+      allow list: if resource.data.userId is string;
+      allow create: if isValidId(voteId);
+      allow update, delete: if isValidId(voteId) && isAdmin();
+    }
+
+    // Question Bank
+    match /question_bank/{questionId} {
+      allow get: if isValidId(questionId);
+      allow list: if resource.data.q is string;
+      allow create, update, delete: if isValidId(questionId);
+    }
+  }
+}

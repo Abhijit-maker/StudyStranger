@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" fill="none">
+  <defs>
+    <!-- Brutalist Hard Drop Shadow Filter -->
+    <filter id="iconHardShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="14" dy="16" stdDeviation="0" flood-color="#18181B" flood-opacity="1" />
+    </filter>
+
+    <!-- 3D Mascot Radial Gradient -->
+    <radialGradient id="mascotGrad512" cx="42%" cy="38%" r="62%">
+      <stop offset="0%" stop-color="#FAF0FC" />
+      <stop offset="65%" stop-color="#F0D5F8" />
+      <stop offset="100%" stop-color="#DFC0EA" />
+    </radialGradient>
+
+    <!-- Golden Star Linear Gradient -->
+    <linearGradient id="goldGrad512" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047" />
+      <stop offset="100%" stop-color="#F59E0B" />
+    </linearGradient>
+
+    <!-- Ambient Container Subtle Gradient -->
+    <linearGradient id="cardGrad512" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#F8FAFC" />
+    </linearGradient>
+  </defs>
+
+  <!-- Base Squircle Container -->
+  <rect x="24" y="24" width="448" height="448" rx="112" fill="url(#cardGrad512)" stroke="#18181B" stroke-width="16" filter="url(#iconHardShadow)" />
+
+  <!-- Acoustic Voice Pulse Rings -->
+  <path d="M 72 256 C 72 208 92 176 120 152" stroke="#10B981" stroke-width="14" stroke-linecap="round" fill="none" opacity="0.8" />
+  <path d="M 440 256 C 440 208 420 176 392 152" stroke="#38BDF8" stroke-width="14" stroke-linecap="round" fill="none" opacity="0.8" />
+
+  <!-- Soft Pedestal Shadow under Mascot -->
+  <ellipse cx="256" cy="410" rx="140" ry="18" fill="#18181B" opacity="0.12" />
+
+  <!-- Main Mascot Circle Face -->
+  <circle cx="256" cy="275" r="142" fill="url(#mascotGrad512)" stroke="#18181B" stroke-width="16" />
+
+  <!-- Highlight Gleam -->
+  <path d="M 180 195 Q 256 165 332 195" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.85" />
+
+  <!-- Left Eye with Dual Gleam -->
+  <g>
+    <ellipse cx="204" cy="265" rx="20" ry="24" fill="#18181B" />
+    <circle cx="196" cy="254" r="8.5" fill="#FFFFFF" />
+    <circle cx="214" cy="273" r="4.2" fill="#FFFFFF" />
+  </g>
+
+  <!-- Right Eye with Dual Gleam -->
+  <g>
+    <ellipse cx="308" cy="265" rx="20" ry="24" fill="#18181B" />
+    <circle cx="300" cy="254" r="8.5" fill="#FFFFFF" />
+    <circle cx="318" cy="273" r="4.2" fill="#FFFFFF" />
+  </g>
+
+  <!-- Rosy Blush Cheeks -->
+  <ellipse cx="166" cy="295" rx="20" ry="12" fill="#F472B6" opacity="0.5" />
+  <ellipse cx="346" cy="295" rx="20" ry="12" fill="#F472B6" opacity="0.5" />
+
+  <!-- Cheerful Smile Curve -->
+  <path d="M 216 308 Q 256 348 296 308" stroke="#18181B" stroke-width="15" stroke-linecap="round" fill="none" />
+  <path d="M 240 326 Q 256 342 272 326" fill="#F43F5E" opacity="0.85" />
+
+  <!-- Scholar / AI Graduation Cap -->
+  <g transform="translate(256, 150) rotate(-6)">
+    <!-- Cap Diamond Top -->
+    <polygon points="0,-72 128,-28 0,16 -128,-28" fill="#18181B" stroke="#18181B" stroke-width="8" stroke-linejoin="round" />
+    <!-- Cap Under Skullcap -->
+    <path d="M -64,-16 Q 0,32 64,-16 L 64,12 Q 0,56 -64,12 Z" fill="#27272A" stroke="#18181B" stroke-width="7" />
+    <!-- Golden Tassel Ribbon -->
+    <path d="M 0,-28 Q 72,-24 104,44" stroke="#F59E0B" stroke-width="10" stroke-linecap="round" fill="none" />
+    <circle cx="104" cy="48" r="12" fill="#FDE047" stroke="#18181B" stroke-width="6" />
+    <!-- Diamond Button on cap crown -->
+    <polygon points="0,-36 10,-28 0,-20 -10,-28" fill="#FDE047" />
+  </g>
+
+  <!-- AI Sparkle Star (Top Right) -->
+  <g transform="translate(398, 92)">
+    <path d="M 0,-38 Q 0,0 38,0 Q 0,0 0,38 Q 0,0 -38,0 Q 0,0 0,-38 Z" fill="url(#goldGrad512)" stroke="#18181B" stroke-width="7" stroke-linejoin="round" />
+    <circle cx="0" cy="0" r="7" fill="#FFFFFF" />
+  </g>
+
+  <!-- Green Study Science Orbit Dot (Bottom Left) -->
+  <circle cx="92" cy="356" r="16" fill="#A7F3D0" stroke="#18181B" stroke-width="8" />
+</svg>

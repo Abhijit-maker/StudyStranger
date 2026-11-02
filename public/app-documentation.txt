@@ -1,0 +1,95 @@
+================================================================================
+STUDY STRANGER (অভিজিৎ) - FULL APP ARCHITECTURE & BUILD SPECIFICATION REPORT
+================================================================================
+Generated for Admin: Abhijit (abhiyaan963 / jhhh47943@gmail.com)
+Target Platform: WBCHSE Class 12 - Semester 3 (MCQ Exam Focus)
+Date: August 4, 2026
+
+--------------------------------------------------------------------------------
+1. PROJECT OVERVIEW & STUDENT PROFILE
+--------------------------------------------------------------------------------
+• Student Name: Abhijit (অভিজিৎ)
+• Board: WBCHSE (West Bengal Council of Higher Secondary Education)
+• Level: Class 12 - Semester 3
+• Target: MCQ-based Exam Preparation, Quick Revision, AI Voice Mentorship
+• Primary Language: Bengali & English (Bilingual Support)
+
+--------------------------------------------------------------------------------
+2. COMPLETE WBCHSE SEMESTER 3 SYLLABUS SPECIFICATION
+--------------------------------------------------------------------------------
+
+[SUBJECT 1: BIOLOGY (জীববিদ্যা)]
+• Unit I: Reproduction
+  - Sexual Reproduction in Flowering Plants: Microsporogenesis, Megasporogenesis,
+    Pollination mechanisms (Geitonogamy, Xenogamy).
+  - Human Reproduction: Gametogenesis (Acrosome sperm head, Mitochondria midpiece),
+    Menstrual Cycle (Day 14 LH Surge), Fertilization (ZP3 receptor binding),
+    Ectopic Implantation (e.g., Fallopian tubes).
+  - Reproductive Health: Sexually Transmitted Diseases (Syphilis pathogen: Treponema pallidum,
+    HIV, Chlamydia).
+• Unit II: Genetics and Evolution
+  - Heredity and Variation: Mendel's Laws, Linkage, Crossing Over.
+  - Molecular Basis of Inheritance: DNA/RNA structure (A=T 2 bonds, G≡C 3 bonds),
+    Replication (SSB protein stabilization), Transcription (TATA Box), Translation.
+  - Evolution: Origin of Life (Oparin-Haldane hypothesis), Homologous vs Analogous Organs,
+    Human Evolution (Australopithecus, Homo erectus).
+
+[SUBJECT 2: BENGALI A (বাংলা এ)]
+• Prose (গল্প/প্রবন্ধ):
+  - আদিরিনী (প্রভাত কুমার মুখোপাধ্যায়): Jayram Mokhtar and Adarini the elephant (purchased for 2000 rupees).
+  - বাঙ্গালা ভাষা (স্বামী বিবেকানন্দ): Vernacular language, simplicity, and authentic education.
+• Poetry (কবিতা):
+  - ধর্ম (শ্রীজাত): Manush-er Dharma vs Institutionalized religion.
+  - দিগ্বিজয়ের রূপকথা (নবনীতা দেবসেন): Internal courage and self-realization.
+• International / Indian Translations:
+  - পোটরাজ (শঙ্কর রাও খারাট): Marathi translated narrative.
+  - তার সঙ্গে (পাবলো নেরুদা): Translated into Bengali by Shakti Chattopadhyay.
+• Linguistics (ভাষাবিজ্ঞান):
+  - Phonemics (ধ্বনিতত্ত্ব), Semantics (শব্দার্থতত্ত্ব), Structural Linguistics.
+
+[SUBJECT 3: ENGLISH B]
+• Prose:
+  - 'The Night Train at Deoli' (Ruskin Bond): Longing, nostalgia, and the unknown girl at Deoli platform.
+  - 'Strong Roots' (APJ Abdul Kalam): Spiritual upbringing and harmony in Rameswaram.
+  - 'The Bet' (Anton Chekhov): Capital punishment vs life imprisonment; wager of 2 million rubles for 15 years.
+• Verse:
+  - 'Ulysses' (Alfred Lord Tennyson): "To strive, to seek, to find, and not to yield."
+  - 'Our Casuarina Tree' (Toru Dutt): Childhood memories and immortality of nature.
+• Play:
+  - 'Riders to the Sea' (J.M. Synge): Irish tragedy portraying the sea as an antagonist.
+
+--------------------------------------------------------------------------------
+3. TECHNICAL ARCHITECTURE & STACK
+--------------------------------------------------------------------------------
+• Frontend Framework: React 18, TypeScript, Vite
+• Styling & Animation: Tailwind CSS, Motion (framer-motion)
+• Icons: Lucide React
+• Database & Auth: Firebase Firestore & Firebase Authentication
+• Server-Side AI SDK: @google/genai (Gemini 2.5 Flash / Gemini 2.5 Pro)
+• Live Voice AI Engine: WebSockets Multimodal Live Stream Manager (liveService.ts)
+
+--------------------------------------------------------------------------------
+4. KEY APP COMPONENTS
+--------------------------------------------------------------------------------
+• src/App.tsx: Main application layout, Auth state, Live Session manager, Admin controls
+• src/firebase.ts: Firebase configuration and Firestore/Auth initializers
+• src/services/geminiService.ts: Server-side Gemini API calls, Memory Vault management
+• src/services/liveService.ts: WebSockets real-time Bengali/English voice AI mentor session
+• src/components/Dashboard.tsx: Student dashboard with live Date & Weather, 7-day interactive schedule
+• src/components/AppBuildDocsModal.tsx: Admin-only Build Documentation & Exporter (HTML & TXT)
+• src/components/LiveBoard.tsx: Interactive drawing & visual teaching whiteboard
+• src/components/AIMemoryVault.tsx: Permanent Firestore memory vault
+• src/components/Syllabus.tsx: Interactive WBCHSE Class 12 Semester 3 progress checklist
+
+--------------------------------------------------------------------------------
+5. ADMIN CREDENTIALS & PERMISSIONS
+--------------------------------------------------------------------------------
+• Admin Username: abhiyaan963
+• Admin Display Name: Abhijit (Admin)
+• Primary Admin Email: jhhh47943@gmail.com
+• Admin Privileges: Full access to User Moderation, Firestore Memory Vault, System Logs,
+  and App Build Documentation Exporter.
+
+================================================================================
+END OF BUILD SPECIFICATION REPORT
+================================================================================

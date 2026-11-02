@@ -1,0 +1,364 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Student profile, WBCHSE Semester 3 progress, streak, XP, and AI study memory",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Firebase Auth UID of the student"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 120,
+          "description": "Full display name of the student"
+        },
+        "displayName": {
+          "type": "string",
+          "maxLength": 120,
+          "description": "Display name shown across the studio"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "maxLength": 254,
+          "description": "Student email address (PII restricted to owner/admin)"
+        },
+        "photoURL": {
+          "type": "string",
+          "maxLength": 1024,
+          "description": "Avatar URL"
+        },
+        "board": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Educational board (WBCHSE)"
+        },
+        "class": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Class and semester label"
+        },
+        "provider": {
+          "type": "string",
+          "enum": ["google", "password"],
+          "maxLength": 32,
+          "description": "Authentication provider"
+        },
+        "points": {
+          "type": "number",
+          "description": "Verified XP points earned"
+        },
+        "streak": {
+          "type": "number",
+          "description": "Verified consecutive study days"
+        },
+        "lastLogin": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "ISO timestamp of last sign-in"
+        }
+      },
+      "required": ["uid", "name"]
+    },
+    "Announcement": {
+      "title": "Announcement",
+      "description": "Official WBCHSE Class 12 Semester 3 notice board announcement",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "maxLength": 300,
+          "description": "Notice headline"
+        },
+        "content": {
+          "type": "string",
+          "maxLength": 5000,
+          "description": "Full notice body"
+        },
+        "category": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Notice category"
+        },
+        "createdAt": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Creation timestamp"
+        }
+      },
+      "required": ["title"]
+    },
+    "MockTestResult": {
+      "title": "MockTestResult",
+      "description": "Completed WBCHSE Class 12 Semester 3 mock exam score record",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "UID of the student who completed the mock exam"
+        },
+        "userName": {
+          "type": "string",
+          "maxLength": 120,
+          "description": "Student display name"
+        },
+        "subject": {
+          "type": "string",
+          "maxLength": 80,
+          "description": "Exam subject"
+        },
+        "score": {
+          "type": "number",
+          "description": "Marks scored"
+        },
+        "total": {
+          "type": "number",
+          "description": "Total marks"
+        },
+        "points": {
+          "type": "number",
+          "description": "XP points awarded"
+        }
+      },
+      "required": ["userId", "subject", "score"]
+    },
+    "FocusSession": {
+      "title": "FocusSession",
+      "description": "Live Pomodoro Focus Study Room presence status",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Student UID"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 120,
+          "description": "Student name"
+        },
+        "subject": {
+          "type": "string",
+          "maxLength": 80,
+          "description": "Subject currently being studied"
+        },
+        "status": {
+          "type": "string",
+          "maxLength": 40,
+          "description": "Focus timer status"
+        }
+      },
+      "required": ["uid", "name"]
+    },
+    "QuizChallenge": {
+      "title": "QuizChallenge",
+      "description": "1v1 Friend Quiz Duel room state",
+      "type": "object",
+      "properties": {
+        "roomCode": {
+          "type": "string",
+          "maxLength": 32,
+          "description": "Room invite code"
+        },
+        "hostUid": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "UID of room creator"
+        },
+        "subject": {
+          "type": "string",
+          "maxLength": 80,
+          "description": "Subject of the quiz duel"
+        },
+        "status": {
+          "type": "string",
+          "maxLength": 32,
+          "description": "waiting, active, or completed"
+        }
+      },
+      "required": ["roomCode", "status"]
+    },
+    "SharedDocument": {
+      "title": "SharedDocument",
+      "description": "Centralized PDF document metadata and base64 payload synced across all student accounts in real-time",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Unique PDF document ID"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 300,
+          "description": "PDF file name"
+        },
+        "folderId": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Target study folder or sub-folder ID"
+        },
+        "subjectTag": {
+          "type": "string",
+          "maxLength": 100,
+          "description": "Academic subject tag"
+        },
+        "uploadedBy": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Uploader role (admin or student)"
+        },
+        "uploaderEmail": {
+          "type": "string",
+          "maxLength": 254,
+          "description": "Email or identifier of uploader"
+        },
+        "size": {
+          "type": "number",
+          "description": "File size in bytes"
+        },
+        "sizeFormatted": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Human-readable file size"
+        },
+        "dataUrl": {
+          "type": "string",
+          "description": "Inline base64 PDF data URL when single-chunk"
+        },
+        "streamUrl": {
+          "type": "string",
+          "maxLength": 512,
+          "description": "Direct server stream URL for binary PDF delivery"
+        },
+        "mimeType": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "MIME type (application/pdf)"
+        },
+        "uploadedAt": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "ISO upload timestamp"
+        },
+        "isFirestoreChunked": {
+          "type": "boolean",
+          "description": "True if the PDF payload is split across subcollection chunks"
+        },
+        "firestoreChunkCount": {
+          "type": "number",
+          "description": "Number of chunks stored in /shared_documents/{docId}/chunks"
+        }
+      },
+      "required": ["id", "name", "folderId", "size", "mimeType", "uploadedAt"]
+    },
+    "SharedDocumentChunk": {
+      "title": "SharedDocumentChunk",
+      "description": "Chunk of a base64 PDF dataUrl stored under /shared_documents/{docId}/chunks/{chunkId}",
+      "type": "object",
+      "properties": {
+        "docId": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Parent PDF document ID"
+        },
+        "index": {
+          "type": "number",
+          "description": "Zero-based chunk index"
+        },
+        "totalChunks": {
+          "type": "number",
+          "description": "Total number of chunks"
+        },
+        "data": {
+          "type": "string",
+          "description": "Slice of the base64 dataUrl string"
+        }
+      },
+      "required": ["docId", "index", "totalChunks", "data"]
+    },
+    "SharedFolder": {
+      "title": "SharedFolder",
+      "description": "Shared study vault folder or sub-folder synced across all accounts",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Unique folder ID"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 200,
+          "description": "Folder display name"
+        },
+        "parentId": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Parent folder ID if sub-folder"
+        },
+        "subjectTag": {
+          "type": "string",
+          "maxLength": 100,
+          "description": "Subject tag"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 500,
+          "description": "Folder description"
+        },
+        "createdBy": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Creator role (admin or student)"
+        },
+        "createdAt": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "ISO creation timestamp"
+        }
+      },
+      "required": ["id", "name", "subjectTag", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Private student profile, progress, streak, and AI memories"
+    },
+    "/announcements/{announcementId}": {
+      "schema": { "$ref": "#/entities/Announcement" },
+      "description": "WBCHSE Semester 3 notice board items"
+    },
+    "/mock_test_results/{resultId}": {
+      "schema": { "$ref": "#/entities/MockTestResult" },
+      "description": "Completed mock exam results and leaderboard entries"
+    },
+    "/focus_sessions/{sessionId}": {
+      "schema": { "$ref": "#/entities/FocusSession" },
+      "description": "Active focus room sessions"
+    },
+    "/challenges/{challengeId}": {
+      "schema": { "$ref": "#/entities/QuizChallenge" },
+      "description": "1v1 friend quiz duel rooms"
+    },
+    "/shared_documents/{docId}": {
+      "schema": { "$ref": "#/entities/SharedDocument" },
+      "description": "Centralized shared PDF documents synced across all student and admin accounts"
+    },
+    "/shared_documents/{docId}/chunks/{chunkId}": {
+      "schema": { "$ref": "#/entities/SharedDocumentChunk" },
+      "description": "Chunked base64 slices for shared PDF documents"
+    },
+    "/shared_folders/{folderId}": {
+      "schema": { "$ref": "#/entities/SharedFolder" },
+      "description": "Centralized shared PDF folders and sub-folders"
+    }
+  }
+}
